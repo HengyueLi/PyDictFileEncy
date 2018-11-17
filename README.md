@@ -1,7 +1,15 @@
 # PyDictFileEncy
 
-A simple API used to encrypt the python dict into a file using AES256. The interaction is between the file and memory directly(No decrypted file.tmp will be created). The encrypted data is saved by string in a file on the disc. For me, this is used as a replacement for encrypted-Sqlite3.
+A simple API used to encrypt the python dict into a file using AES256. The interaction is between the file and memory directly(No decrypted file.tmp will be created). The encrypted data is saved by string in a file on the disc. If one were developing a single thread app, this can be used as encrypted "SQL".
 This API is a collection of the answers on StackOverflow.
+
+
+## Install
+
+```
+pip install pydictfileency
+```
+
 
 ## Usage
 A (set of) python dict is collected in a "container" which will be operated directly.
@@ -9,6 +17,12 @@ A (set of) python dict is collected in a "container" which will be operated dire
 
 
 ## example and API
+
+```
+from pydictfileency import PyDictFileEncy
+```
+
+
 
 
 Create a container

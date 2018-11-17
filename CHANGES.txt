@@ -1,0 +1,7 @@
+
+version 2018.11.17
+2018-11-17
+- fix markdown maker
+
+
+v<version>, <date> -- Initial release.
