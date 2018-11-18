@@ -20,13 +20,13 @@
 #
 #──────────────────────────
 # Used :
-import json,hashlib,base64,os,inspect
+import json,hashlib,base64,os,inspect,functools
 from Crypto import Random
 from Crypto.Cipher import AES
 #──────────────────────────
 # Interface:
 #
-#        [ini] file,key
+#        [ini] path,key
 #
 #        [sub] connect()
 #              make connect to the filedict.
@@ -128,9 +128,10 @@ class PyDictFileEncy():
                 self.__isconnected = True
         else:
             self.__isconnected = True
-            self.__InitiateFile(self.path,self.key)
+            self.__Dict = self.__InitiateFile(self.path,self.key)
 
     def __IsconnectCheck(f):
+        @functools.wraps(f)
         def decorated(*args,**kwargs):
             self = args[0]
             if self.IsConnected():
@@ -248,6 +249,7 @@ class PyDictFileEncy():
     def __InitiateFile(cls,filepath,key=''):
         d = {  'FILE_DB_CONFIG':{ 'password':key    }  , 'FILE_DB_TABLE':{}   }
         cls.__SaveDictToFile(filepath,d)
+        return d
 
 
 
@@ -357,3 +359,13 @@ class PyDictFileEncy():
 # # f.CreateTableIfNotExist('MyPasswordManeger')
 # #
 # # f.SaveToDB()
+
+
+
+
+# f = PyDictFileEncy('test.db','123')
+# f.connect()
+#
+# f.CreateTableIfNotExist('t1')
+# f.CreateTableIfNotExist('t2')
+# f.CreateTableIfNotExist('t3')

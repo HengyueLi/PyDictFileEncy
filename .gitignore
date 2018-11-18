@@ -2,3 +2,5 @@
 dist/
 
 pydictfileency\.egg-info/
+
+env/

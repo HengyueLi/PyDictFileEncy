@@ -1,3 +1,7 @@
+version 2018.11.18
+2018-11-18
+- fix bug: __InitiateFile should also set self.__Dict (while previously not)
+
 
 version 2018.11.17
 2018-11-17
