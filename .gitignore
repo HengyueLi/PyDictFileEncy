@@ -4,3 +4,5 @@ dist/
 pydictfileency\.egg-info/
 
 env/
+
+pydictfileency/__pycache__/
