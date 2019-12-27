@@ -5,6 +5,7 @@ import sys,os,datetime
 #--------------
 name    = 'pydictfileency'
 scripts = []
+description = "A simple API used to encrypt the python dict into a file using AES256."
 #--------------
 
 
@@ -32,7 +33,7 @@ setuptools.setup(
     author_email='hengyue.li@hengyue.li',
     packages=setuptools.find_packages(),
     license='LICENSE.md',
-    description='A tool based on paramiko used to connect to remote server.',
+    description='{description}',
     long_description=open('README.md',encoding="utf8").read(),
     long_description_content_type="text/markdown",
     install_requires={install_requires},
@@ -42,6 +43,7 @@ setuptools.setup(
 '''.format(name    = name ,
            scripts = str(scripts),
            version = datetime.datetime.now().strftime("%Y.%m.%d.%H%M") ,
+           description = description,
            install_requires = [ i for i in open('requirements.txt').read().split('\n') if len(i)>1  ] )
 
 
