@@ -23,6 +23,7 @@
 import json,hashlib,base64,os,inspect,functools
 from Crypto import Random
 from Crypto.Cipher import AES
+import hashlib
 #──────────────────────────
 # Interface:
 #
@@ -221,6 +222,16 @@ class PyDictFileEncy():
         Estr = f.read()
         f.close()
         try:
+            #----------------
+            # 20200425
+            checkLen = 5
+            Estr = Estr.decode('utf-8')
+            CheckMD5 = Estr[0:checkLen]
+            PureData = Estr[checkLen:]
+            if hashlib.md5( PureData.encode('utf-8') ).hexdigest()[0:checkLen] != CheckMD5:
+                return None
+            Estr = PureData.encode('utf-8')
+            #----------------
             getString = reader.decrypt(Estr)
             d = json.loads(getString)
             if d['FILE_DB_CONFIG']['password'] == key:
@@ -239,6 +250,14 @@ class PyDictFileEncy():
         key    = Dict['FILE_DB_CONFIG']['password']
         reader = cls.AESCipher(key)
         Estr   = reader.encrypt(jStr)
+        #----------------
+        # 20200425
+        checkLen = 5
+        Estr = Estr.decode('utf-8')
+        CheckMD5 = hashlib.md5( Estr.encode('utf-8') ).hexdigest()[0:checkLen]
+        TotStr = CheckMD5 + Estr
+        Estr = TotStr.encode('utf-8')
+        #----------------
         tpfile = filepath+'.tmp'
         f = open(tpfile,'wb')
         f.write(Estr)
