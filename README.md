@@ -1,7 +1,8 @@
 # PyDictFileEncy
 
-A simple API used to encrypt the python dict into a file using AES256. The interaction is between the file and memory directly(No decrypted file.tmp will be created). The encrypted data is saved by string in a file on the disc. If one were developing a single thread app, this can be used as encrypted "SQL".
-This API is a collection of the answers on StackOverflow.
+Store a python dictionary into a file with a password (by AES256). The interaction is between the file and memory directly(No decrypted file.tmp will be created). The encrypted data is saved by string in a file on the disc. One can load the data from a disc into a python dictionary and use it in the memory. The core part of this package is make use of the answer in [StackOverflow](https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256).
+
+
 
 
 ## Install
@@ -113,3 +114,24 @@ container.Save()
 # the container itself is already renewed
 print( container.IsConnected() )
 ```
+
+Get encrypted file (careful to use it): save the decrypted data into a file
+```
+#----------------------------------------------------
+# password is also saved into the file!!!
+container = PyDictFileEncy('encrypted.dat','password')
+container.connect()
+container.SaveDecryptedDataToFile('DecryptedData.txt')
+```
+
+
+Read data from a decrypted file:
+```
+#----------------------------------------------------
+# The current file will be overrided.
+container = PyDictFileEncy('encrypted.dat','password')
+container.connect()
+container.ReadDecryptedDataFile('DecryptedData.txt')
+```
+
+`SaveDecryptedDataToFile` and `ReadDecryptedDataFile` can be used to backup and restore.

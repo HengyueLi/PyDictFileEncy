@@ -61,6 +61,13 @@ from Crypto.Cipher import AES
 #
 #        [fun] GetFilePath()
 #
+#        [fun] SaveDecryptedDataToFile(FilePath)
+#              save all data (dict) into a file. Careful to use this procedure
+#
+#        [fun] ReadDecryptedDataFile(FilePath)
+#              The inverse action of 'SaveDecryptedDataToFile'.
+#              When load a new file, the current data file is overried.
+#
 #
 #══════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
@@ -236,6 +243,10 @@ class PyDictFileEncy():
         f = open(tpfile,'wb')
         f.write(Estr)
         f.close()
+        try:
+            os.remove(filepath)
+        except:
+            pass
         os.rename(tpfile,filepath)
 
 
@@ -252,8 +263,16 @@ class PyDictFileEncy():
         return d
 
 
+    @__IsconnectCheck
+    def SaveDecryptedDataToFile(self,FilePath):
+        jStr   = json.dumps(self.__Dict)
+        open(FilePath,'w').write(jStr)
 
-
+    def ReadDecryptedDataFile(self,FilePath):
+        Estr = open(FilePath,'r').read()
+        DICT = json.loads(Estr)
+        self.__Dict = DICT
+        self.Save()
 
 
 
